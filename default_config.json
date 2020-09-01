@@ -1,0 +1,19 @@
+{
+    "batch_size": 8,
+    "contrast_factor": 0.4,
+    "conv_block1_filters": 64,
+    "conv_block2_filters": 32,
+    "conv_block3_filters": 32,
+    "conv_block4_filters": 256,
+    "conv_block5_filters": 32,
+    "dropout_rate": 0.2,
+    "fc1_units": 256,
+    "fc_layer_type": "dense",
+    "flip_mode": "horizontal",
+    "lr": 0.001,
+    "pool_type": "max",
+    "rotation_factor": 0.1,
+    "use_contrast": "True",
+    "use_flip": "True",
+    "use_rotation": "False"
+}
