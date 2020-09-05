@@ -28,10 +28,10 @@ class Generator(tf.keras.utils.Sequence):
     
     def load_image_paths_labels(self, DATASET_PATH):
         
-        classes = os.listdir(DATASET_PATH)
-        lb = preprocessing.LabelBinarizer()
-        lb.fit(classes)
-        self.classes = lb.classes_
+        classes = np.array(os.listdir(DATASET_PATH))
+        lb = preprocessing.OneHotEncoder(sparse=False)
+        lb.fit(classes.reshape(len(classes), 1))
+        self.classes = lb.categories_[0].tolist()
 
         self.image_paths = []
         self.image_labels = []
@@ -41,7 +41,8 @@ class Generator(tf.keras.utils.Sequence):
                 self.image_paths.append(os.path.join(class_path, image_file_name))
                 self.image_labels.append(class_name)
 
-        self.image_labels = np.array(lb.transform(self.image_labels), dtype='float32')
+        self.image_labels = np.array(self.image_labels)
+        self.image_labels = np.array(lb.transform(self.image_labels.reshape(len(self.image_labels), 1)), dtype='float32')
         
         assert len(self.image_paths) == len(self.image_labels)
 
