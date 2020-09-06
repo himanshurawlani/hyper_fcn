@@ -51,7 +51,7 @@ class TuneReporter(tf.keras.callbacks.Callback):
             tune.report(keras_info=logs, val_loss=logs['val_loss'], mean_accuracy=logs.get("accuracy"))
 
 
-def create_callbacks(final_run, model_path, label_to_name):
+def create_callbacks(final_run, model_path):
     callbacks = []
 
     # Creating early stopping callback

@@ -56,7 +56,7 @@ class Trainable:
                         metrics=['accuracy'])
         
         # Create callbacks to be used during model training
-        callbacks = create_callbacks(self.final_run, self.snapshot_dir, train_generator.classes)
+        callbacks = create_callbacks(self.final_run, self.snapshot_dir)
 
         logger.info("Starting model training")
         # Start model training
