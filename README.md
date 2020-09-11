@@ -1,4 +1,4 @@
-# Hyperparameter tuning using Keras and Ray Tune
+# Hyperparameter tuning with Keras and Ray Tune
 
 This project uses HyperOpt's Bayesian optimization and Ray Tune to perform hyperparameter tuning for a simple image classifier. I explain the code and concepts used in this project in [this blogpost](https://medium.com/@himanshurawlani/hyperparameter-tuning-with-keras-and-ray-tune-1353e6586fda).
 
