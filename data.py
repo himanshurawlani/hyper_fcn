@@ -1,4 +1,4 @@
-import os, cv2
+import os, sys, cv2, argparse
 from shutil import copy2
 import numpy as np
 import tensorflow as tf 
@@ -128,11 +128,33 @@ def get_dataset_stats(DATASET_PATH = 'dataset'):
 
     return len_classes, train_dir, val_dir, IMG_HEIGHT, IMG_WIDTH, total_train, total_val
 
-if __name__ == "__main__":
-    
+def parse_args(args):
+    """
+    Example command:
+    $ $ python data.py --train-count 500 --val-count 100
+    """
+    parser = argparse.ArgumentParser(description='Optimize RetinaNet anchor configuration')
+    parser.add_argument('--train-count', type=int, help='Number of training images to be used for each class.')
+    parser.add_argument('--val-count', type=int, help='Number of validation images to be used for each class.')
+
+    return parser.parse_args(args)
+
+
+def main(args=None):
+    # Parse command line arguments.
+    if args is None:
+        args = sys.argv[1:]
+    args = parse_args(args)
+
     BASE_PATH = download_dataset()
+    
     # Number of images required in train and val sets
-    train_images = 64
-    val_images = 16
+    train_images = args.train_count
+    val_images = args.val_count
+    
     split_dataset(BASE_PATH=BASE_PATH, train_images = train_images, val_images = val_images)
     get_dataset_stats()
+
+if __name__ == "__main__":
+    
+    main()

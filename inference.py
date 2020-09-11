@@ -1,6 +1,7 @@
-import os
+import os, sys
 import traceback
 import cv2
+import argparse
 
 import pandas as pd
 import numpy as np
@@ -148,10 +149,27 @@ def predict(folder_path, snapshot_dir):
     
     return output
 
+def parse_args(args):
+    """
+    Example command:
+    $ python inference.py --test-dir ./test_images --snapshot-dir ./snapshots
+    """
+    parser = argparse.ArgumentParser(description='Optimize RetinaNet anchor configuration')
+    parser.add_argument('--test-dir', type=str, help='Directory containing images for testing.', default="./test_images")
+    parser.add_argument('--snapshot-dir', type=str, help='Directory containing training artifacts.', default="./snapshots")
+
+    return parser.parse_args(args)
+
+
+def main(args=None):
+    # Parse command line arguments.
+    if args is None:
+        args = sys.argv[1:]
+    args = parse_args(args)
+
+    predictions = predict(args.test_dir, args.snapshot_dir)
+    print(predictions)
 
 if __name__=="__main__":
 
-    folder_path = "./test_images"
-    snapshot_dir = "./snapshots"
-    predictions = predict(folder_path, snapshot_dir)
-    print(predictions)
+    main()

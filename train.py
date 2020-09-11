@@ -119,15 +119,14 @@ def create_search_space():
 def parse_args(args):
     """
     Example command:
-    $ python anchor_optimisation/optimize.py --train-annotations data/train.csv --scales 5 --ratios 5 \
-        --no-resize --save-output --output-path optimized_anchors.json
+    $ python train.py --train-dir dataset/train --val-dir dataset/val --optimize True --samples 100
     """
     parser = argparse.ArgumentParser(description='Optimize RetinaNet anchor configuration')
     parser.add_argument('--train-dir', type=str, help='Path to training directory containing folders with images for each class.')
     parser.add_argument('--val-dir', type=str, help='Path to validation directory containing folders with images for each class.')
     parser.add_argument('--snapshot-dir', type=str, help='Path to validation directory containing folders with images for each class.',
                                              default='./snapshots')
-    parser.add_argument('--config-path', type=str, help='FCN model config path.', default='./default_config.json')
+    parser.add_argument('--config-path', type=str, help='FCN model config path (considered only when optimize=False).', default='./default_config.json')
     parser.add_argument('--optimize', type=str, help='Flag to run hyperparameter search.', default="False")
     parser.add_argument('--samples', type=int, help='Number of times to sample from the hyperparameter space.', default=64)
 
@@ -173,7 +172,10 @@ def main(args=None):
         
         logger.info("Initializing ray Trainable")
         # Initialize Trainable for hyperparameter tuning
-        trainer = Trainable(args.train_dir, args.val_dir, args.snapshot_dir, final_run=False)
+        trainer = Trainable(os.path.abspath(args.train_dir), 
+                            os.path.abspath(args.val_dir), 
+                            os.path.abspath(args.snapshot_dir), 
+                            final_run=False)
 
         logger.info("Starting hyperparameter tuning")
         analysis = tune.run(trainer.train, 

@@ -1,0 +1,7 @@
+tensorflow
+ray[tune]
+hyperopt
+opencv-python
+Pillow
+Pandas
+sklearn
