@@ -61,13 +61,11 @@ class Trainable:
         logger.info("Starting model training")
         # Start model training
         history = model.fit(train_generator,
-                            # steps_per_epoch=len(train_generator),
-                            steps_per_epoch=1,
-                            epochs=1,
+                            steps_per_epoch=len(train_generator),
+                            epochs=100,
                             callbacks=callbacks,
                             validation_data=val_generator,
-                            # validation_steps=len(val_generator)
-                            validation_steps=1
+                            validation_steps=len(val_generator)
                             )
 
         return history
