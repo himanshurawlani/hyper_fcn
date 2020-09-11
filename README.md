@@ -1,6 +1,6 @@
 # Hyperparameter tuning using Keras and Ray Tune
 
-This project uses HyperOpt's Bayesian optimization and Ray Tune to perform hyperparameter tuning for a simple image classifier. I explain the code and concepts used in this project in this blogpost.
+This project uses HyperOpt's Bayesian optimization and Ray Tune to perform hyperparameter tuning for a simple image classifier. I explain the code and concepts used in this project in [this blogpost](https://medium.com/@himanshurawlani/hyperparameter-tuning-with-keras-and-ray-tune-1353e6586fda).
 
 ## Setup environment
 Install the dependencies by running the command:
@@ -23,7 +23,7 @@ $ python test_hyperopt.py --smoke-test
 Once the smoke test is successfull you can proceed to hyperparameter tuning using [train.py](https://github.com/himanshurawlani/hyper_fcn/blob/master/train.py)
 
 ## Start hyperparamter tuning
-Before starting hyperparameter tuning process please update the `num_cpus` and `num_gpus` variables according to your machine configuration. The default values are `num_cpus=2` and `num_gpus=0`. You can then start the hyperparameter tuning process by running the following command:
+Before starting hyperparameter tuning process please update the [num_cpus](https://github.com/himanshurawlani/hyper_fcn/blob/master/train.py#L154) and [num_gpus](https://github.com/himanshurawlani/hyper_fcn/blob/master/train.py#L155) variables in [train.py](https://github.com/himanshurawlani/hyper_fcn/blob/master/train.py) according to your machine configuration. The default values are `num_cpus=2` and `num_gpus=0`. You can then start the hyperparameter tuning process by running the following command:
 ```
 $ python train.py --train-dir dataset/train --val-dir dataset/val --optimize True --samples 100
 ```
